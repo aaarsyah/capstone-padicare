@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PadiCare</string>
+    <string name="onboarding_item_1">onboarding_item_1</string>
+    <string name="onboarding_item_2">onboarding_item_2</string>
+    <string name="onboarding_item_3">onboarding_item_3\n</string>
+    <string name="get_started">Mulai</string>
+    <string name="title_on_board_1">title_on_board_1\n</string>
+    <string name="sub_title_on_board_1">sub_title_on_board_1\n</string>
+    <string name="title_on_board_2">title_on_board_2\n</string>
+    <string name="sub_title_on_board_2">sub_title_on_board_2\n</string>
+    <string name="title_on_board_3">title_on_board_3\n</string>
+    <string name="sub_title_on_board_3">sub_title_on_board_3\n</string>
+</resources>
