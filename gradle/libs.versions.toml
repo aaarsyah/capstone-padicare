@@ -1,6 +1,6 @@
 [versions]
 agp = "8.1.1"
-org-jetbrains-kotlin-android = "1.9.22"
+org-jetbrains-kotlin-android = "1.9.0"
 core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.2.1"
@@ -20,6 +20,8 @@ navigation = "2.7.4"
 fragment = "1.7.0"
 retrofit = "2.9.0"
 okhttp = "4.11.0"
+camera-camera2 = "androidx.camera:camera-camera2:1.0.2"
+camera-extensions = "androidx.camera:camera-extensions:1.0.2"
 com-google-devtools-ksp = "1.9.0-1.0.11"
 
 [libraries]
@@ -45,6 +47,11 @@ fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+androidx-camera-core = { group = "androidx.camera", name = "camera-core", version = "1.3.4" }
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version = "1.3.4" }
+androidx-camera-view = { group = "androidx.camera", name = "camera-view", version = "1.3.4" }
+camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camera-camera2" }
+camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "camera-extensions" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }

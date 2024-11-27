@@ -35,7 +35,7 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     private fun setupButton() {
-        binding.buttonStart.setOnClickListener {
+        binding.button.setOnClickListener {
             navigateToMain()
         }
     }

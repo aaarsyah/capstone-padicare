@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">PadiCare</string>
+    <string name="welcome">Welcome To</string>
+    <string name="home_nav">Home</string>
+    <string name="detect_nav">Detect</string>
+    <string name="history_nav">History</string>
     <string name="onboarding_item_1">onboarding_item_1</string>
     <string name="onboarding_item_2">onboarding_item_2</string>
     <string name="onboarding_item_3">onboarding_item_3\n</string>
@@ -10,4 +14,16 @@
     <string name="sub_title_on_board_2">sub_title_on_board_2\n</string>
     <string name="title_on_board_3">title_on_board_3\n</string>
     <string name="sub_title_on_board_3">sub_title_on_board_3\n</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="jenis_penyakit">Jenis Penyakit Tanaman Padi</string>
+    <string name="artikel">Artikel</string>
+    <string name="image_penyakit">Gambar Penyakit</string>
+    <string name="nama_penyakit">Nama Penyakit</string>
+    <string name="image_artikel">Gambar Artikel</string>
+    <string name="judul_artikel">Judul Artikel</string>
+    <string name="deskripsi_artikel">Deskripsi Artikel</string>
+    <string name="image_detect">Image Detect</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
 </resources>

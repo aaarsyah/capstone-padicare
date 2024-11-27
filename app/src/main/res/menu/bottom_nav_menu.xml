@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/baseline_home_24"
+        android:title="@string/home_nav" />
+    <item
+        android:id="@+id/navigation_detect"
+        android:icon="@drawable/baseline_photo_camera_24"
+        android:title="@string/detect_nav" />
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/baseline_history_24"
+        android:title="@string/history_nav" />
+</menu>
