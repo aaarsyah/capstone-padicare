@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
+    implementation(libs.cardview)
     implementation(libs.camera.camera2)
     implementation(libs.camera.extensions)
     testImplementation(libs.junit)

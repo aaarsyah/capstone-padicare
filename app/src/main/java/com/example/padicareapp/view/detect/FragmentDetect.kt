@@ -21,6 +21,7 @@ import com.example.padicareapp.R
 import com.example.padicareapp.databinding.FragmentDetectBinding
 import com.example.padicareapp.view.camera.CameraActivity
 import com.example.padicareapp.view.camera.CameraActivity.Companion.CAMERAX_RESULT
+import com.example.padicareapp.view.result.ResultActivity
 
 class FragmentDetect : Fragment(R.layout.fragment_detect) {
 
@@ -100,7 +101,11 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
         // Simulate disease detection
         Toast.makeText(requireContext(), "Detecting...", Toast.LENGTH_SHORT).show()
 
-        // You can implement your disease detection logic here
+        // Passing the image URI to the ResultActivity
+        val intent = Intent(requireContext(), ResultActivity::class.java).apply {
+            putExtra("imageUri", currentImageUri.toString()) // Send the image URI to ResultActivity
+        }
+        startActivity(intent)
     }
 
     private fun allPermissionsGranted() =

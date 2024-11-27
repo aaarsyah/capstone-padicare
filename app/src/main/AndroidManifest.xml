@@ -32,6 +32,9 @@
 
         <activity android:name=".view.MainActivity"
             android:exported="false" />
+
+        <activity android:name=".view.result.ResultActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

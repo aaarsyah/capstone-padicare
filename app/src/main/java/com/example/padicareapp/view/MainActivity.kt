@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.padicareapp.R
 import com.example.padicareapp.view.detect.FragmentDetect
+import com.example.padicareapp.view.history.FragmentHistory
 import com.example.padicareapp.view.home.FragmentHome
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -25,6 +26,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_detect -> {
                     loadFragment(FragmentDetect())
+                    true
+                }
+                R.id.navigation_history -> {
+                    loadFragment(FragmentHistory())
                     true
                 }
                 else -> false

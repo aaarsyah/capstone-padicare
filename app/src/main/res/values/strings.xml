@@ -26,4 +26,14 @@
     <string name="image_detect">Image Detect</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
+    <string name="result_placeholder">Hasil Penyakit</string>
+    <string name="confidence_placeholder">Akurasi</string>
+    <string name="image_desc">Gambar Deteksi</string>
+    <string name="history">History</string>
+    <string name="delete_history">Hapus History</string>
+    <string name="history_deleted">History Terhapus</string>
+    <string name="detection">Detection</string>
+    <string name="description_placeholder">Deskripsi Penyakit</string>
+    <string name="prevention_placeholder">Cara Mengobati</string>
+    <string name="akurasi">Akurasi: 90%</string>
 </resources>

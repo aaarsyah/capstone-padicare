@@ -40,7 +40,7 @@
                 android:text="@string/jenis_penyakit"
                 android:textColor="@color/green"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:layout_marginBottom="8dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -57,7 +57,7 @@
                 android:text="@string/artikel"
                 android:textColor="@color/green"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:layout_marginBottom="8dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
