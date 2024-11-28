@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.padicareapp.R
 import com.example.padicareapp.databinding.FragmentHistoryBinding
+import com.example.padicareapp.room.AppDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FragmentHistory : Fragment() {
-
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
-    private val historyAdapter = HistoryAdapter()
+    private lateinit var adapter: HistoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,30 +45,38 @@ class FragmentHistory : Fragment() {
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false)
         toolbar.logo = BitmapDrawable(resources, scaledBitmap)
 
-        setupRecyclerView()
-        setupDeleteButton()
+        adapter = HistoryAdapter()
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
 
-        // Example: Populating the RecyclerView with dummy data
-        val dummyData = listOf(
-            PredictionHistory("https://plantwiseplusknowledgebank.org/cms/asset/93dab454-de57-4946-bf39-6b9aeb8a015d/management-of-rice-blast-bangladesh-1.jpg", "Blast Disease", "90%"),
-            PredictionHistory("https://upload.wikimedia.org/wikipedia/commons/9/9c/Cochliobolus_miyabeanus.jpg", "Brown Spot", "85%"),
-            PredictionHistory("https://gapoktansekarsari.wordpress.com/wp-content/uploads/2016/07/4.png", "Tungro", "78%")
-        )
-        historyAdapter.submitList(dummyData)
-    }
+        // Load history data
+        loadHistory()
 
-    private fun setupRecyclerView() {
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = historyAdapter
+        // Set up delete all button
+        binding.btnDelete.setOnClickListener {
+            Toast.makeText(requireContext(), "Hapus Berhasil", Toast.LENGTH_SHORT).show()
+            deleteAllHistory()
         }
     }
 
-    private fun setupDeleteButton() {
-        binding.btnDelete.setOnClickListener {
-            Toast.makeText(context, getString(R.string.history_deleted), Toast.LENGTH_SHORT).show()
-            // Example: Clear data from adapter
-            historyAdapter.submitList(emptyList())
+    private fun loadHistory() {
+        val database = AppDatabase.getDatabase(requireContext())
+        CoroutineScope(Dispatchers.IO).launch {
+            val historyList = database.predictionHistoryDao().getAllHistory()
+            Log.d("HistoryFragment", "Loaded history: $historyList")
+            withContext(Dispatchers.Main) {
+                adapter.submitList(historyList)
+            }
+        }
+    }
+
+    private fun deleteAllHistory() {
+        val database = AppDatabase.getDatabase(requireContext())
+        CoroutineScope(Dispatchers.IO).launch {
+            database.predictionHistoryDao().deleteAllHistory()
+            withContext(Dispatchers.Main) {
+                adapter.submitList(emptyList())
+            }
         }
     }
 

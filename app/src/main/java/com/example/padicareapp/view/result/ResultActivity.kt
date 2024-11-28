@@ -6,10 +6,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.padicareapp.R
 import com.example.padicareapp.databinding.ActivityResultBinding
-import java.io.InputStream
 
 class ResultActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityResultBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,34 +15,53 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get the data passed from the previous activity
-        val diseaseName = intent.getStringExtra("disease_name") ?: "Unknown Disease"
-        val imageUriString = intent.getStringExtra("image_url") ?: ""
-        val accuracy = intent.getStringExtra("accuracy") ?: "N/A"
-        val description = intent.getStringExtra("description") ?: "No description available."
-        val prevention = intent.getStringExtra("prevention") ?: "No prevention tips available."
+        // Get the data from the intent
+        val diseaseName = intent.getStringExtra("disease_name") ?: "Unknown"
+        val confidenceScore = intent.getFloatExtra("accuracy", 0.0f)
+        val imageUriString = intent.getStringExtra("imageUri")
 
-        // Set the data to the views
-        binding.resultText.text = diseaseName
-        binding.accuracyText.text = "Akurasi: $accuracy"
-        binding.diseaseDescription.text = description
-        binding.preventionTips.text = prevention
+        // Display image, result, and additional details
+        displayResults(diseaseName, confidenceScore, imageUriString)
+    }
 
-        // Load the image depending on whether it's a URL or URI
-        if (imageUriString.isNotEmpty()) {
-            // If the image URL is a valid URI
-            val imageUri = Uri.parse(imageUriString)
-            try {
-                val inputStream: InputStream? = contentResolver.openInputStream(imageUri)
-                val bitmap = BitmapFactory.decodeStream(inputStream)
-                binding.resultImage.setImageBitmap(bitmap)
-            } catch (e: Exception) {
-                // In case of an error, set a default image or handle the exception
-                binding.resultImage.setImageResource(R.drawable.baseline_photo_size_select_actual_24) // Example placeholder
+    private fun displayResults(diseaseName: String, confidenceScore: Float, imageUriString: String?) {
+        // Display the selected image
+        imageUriString?.let {
+            val imageUri = Uri.parse(it)
+            val inputStream = contentResolver.openInputStream(imageUri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            binding.resultImage.setImageBitmap(bitmap)
+        }
+
+        // Set disease detection result and confidence
+        val resultText = "$diseaseName"
+        binding.resultText.text = resultText
+
+        val acuracyText = "Akurasi : ${confidenceScore * 100}%"
+        binding.accuracyText.text = acuracyText
+
+        // Provide disease-specific description and prevention tips
+        when (diseaseName) {
+            "Brown Spot" -> {
+                binding.diseaseDescription.text = getString(R.string.disease_a_description)
+                binding.preventionTips.text = getString(R.string.disease_a_prevention)
             }
-        } else {
-            // Fallback if imageUriString is empty, use a default image
-            binding.resultImage.setImageResource(R.drawable.baseline_photo_size_select_actual_24) // Example placeholder
+            "Hispa" -> {
+                binding.diseaseDescription.text = getString(R.string.disease_b_description)
+                binding.preventionTips.text = getString(R.string.disease_b_prevention)
+            }
+            "Leaf Blast (Hawar Daun)" -> {
+                binding.diseaseDescription.text = getString(R.string.disease_c_description)
+                binding.preventionTips.text = getString(R.string.disease_c_prevention)
+            }
+            "Sehat" -> {
+                binding.diseaseDescription.text = getString(R.string.disease_d_description)
+                binding.preventionTips.text = getString(R.string.disease_d_prevention)
+            }
+            else -> {
+                binding.diseaseDescription.text = getString(R.string.unknown_disease_description)
+                binding.preventionTips.text = getString(R.string.unknown_disease_prevention)
+            }
         }
     }
 }

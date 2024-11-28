@@ -7,13 +7,13 @@
     <string name="onboarding_item_1">onboarding_item_1</string>
     <string name="onboarding_item_2">onboarding_item_2</string>
     <string name="onboarding_item_3">onboarding_item_3\n</string>
-    <string name="get_started">Mulai</string>
-    <string name="title_on_board_1">title_on_board_1\n</string>
-    <string name="sub_title_on_board_1">sub_title_on_board_1\n</string>
-    <string name="title_on_board_2">title_on_board_2\n</string>
-    <string name="sub_title_on_board_2">sub_title_on_board_2\n</string>
-    <string name="title_on_board_3">title_on_board_3\n</string>
-    <string name="sub_title_on_board_3">sub_title_on_board_3\n</string>
+    <string name="get_started">Mulai Sekarang!</string>
+    <string name="title_on_board_1">Jaga Kesehatan Tanaman Padi Anda!\n</string>
+    <string name="sub_title_on_board_1">Deteksi penyakit padi dengan mudah dan cepat menggunakan PadiCare, solusi efektif untuk menjaga tanaman padi tetap sehat.\n</string>
+    <string name="title_on_board_2">Kenali Penyakit, Cegah, dan Obati Tanaman Padi Anda dalam Satu Aplikasi\n</string>
+    <string name="sub_title_on_board_2">Identifikasi penyakit hanya dengan foto, cegah kerusakan, dan dapatkan rekomendasi pengobatan untuk hasil panen optimal.\n</string>
+    <string name="title_on_board_3">Deteksi Penyakit Padi dengan Cepat\n</string>
+    <string name="sub_title_on_board_3">Tak perlu khawatir! Cukup pindai gambar untuk deteksi penyakit padi dan dapatkan pengobatan yang tepat.\n</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="jenis_penyakit">Jenis Penyakit Tanaman Padi</string>
@@ -33,7 +33,21 @@
     <string name="delete_history">Hapus History</string>
     <string name="history_deleted">History Terhapus</string>
     <string name="detection">Detection</string>
-    <string name="description_placeholder">Deskripsi Penyakit</string>
+    <string name="description_placeholder">Deskripsi</string>
     <string name="prevention_placeholder">Cara Mengobati</string>
     <string name="akurasi">Akurasi: 90%</string>
+    <string name="disease_a_description">Brown Spot adalah penyakit yang disebabkan oleh jamur Bipolaris oryzae. Penyakit ini biasanya menyerang daun, tetapi juga dapat memengaruhi biji padi. Gejala utama meliputi munculnya bercak coklat berbentuk bulat atau oval pada daun padi. Bercak ini sering memiliki lingkaran berwarna kuning di sekitarnya. Infeksi berat dapat mengurangi fotosintesis, sehingga menurunkan hasil panen.</string>
+    <string name="disease_b_description">Hispa adalah hama yang disebabkan oleh serangga Dicladispa armigera. Hama ini menyerang daun padi dengan cara menggerek lapisan atas daun, meninggalkan garis-garis putih atau transparan. Jika infestasi parah, daun menjadi kering dan tanaman tidak mampu fotosintesis secara efektif.</string>
+    <string name="disease_a_prevention">Pencegahan:\nGunakan varietas padi yang tahan terhadap penyakit bercak coklat.\nTanam padi dengan jarak yang cukup untuk memastikan sirkulasi udara yang baik.\nJaga kebersihan lahan dengan menghilangkan sisa-sisa tanaman yang terinfeksi.\n\nPengendalian Kimia:\nSemprotkan fungisida berbahan aktif seperti mankozeb atau propikonazol sesuai dosis anjuran.\n\nPengelolaan Nutrisi:\nBerikan pupuk yang cukup, terutama silika dan kalium, untuk meningkatkan ketahanan tanaman terhadap penyakit.\n</string>
+    <string name="disease_b_prevention">Pencegahan:\nTanam padi secara serentak untuk memutus siklus hidup hama.\nLakukan rotasi tanaman untuk mengurangi populasi hama di lahan.\nGunakan varietas padi yang lebih tahan terhadap serangan Hispa.\n\nPengendalian Mekanis:\nAmbil dan hancurkan serangga dewasa atau daun yang terinfeksi.\n\nPengendalian Kimia:\nGunakan insektisida berbahan aktif seperti karbofuran atau imidakloprid, tetapi pastikan penggunaannya sesuai anjuran agar tidak merusak lingkungan.</string>
+    <string name="disease_c_description">Penyakit Leaf Blast disebabkan oleh jamur Pyricularia oryzae. Penyakit ini dapat menyerang semua bagian tanaman, tetapi paling sering terlihat pada daun. Gejala awalnya berupa bercak berbentuk berlian dengan bagian tengah berwarna abu-abu dan tepi coklat. Jika tidak ditangani, penyakit ini dapat menyebar ke batang dan malai, menyebabkan kerusakan parah.</string>
+    <string name="disease_c_prevention">Pencegahan:\nGunakan varietas padi yang tahan terhadap hawar daun.\nHindari penggunaan pupuk nitrogen secara berlebihan karena dapat mempercepat perkembangan penyakit.\nTanam padi di lahan dengan drainase yang baik untuk mengurangi kelembaban.\n\nPengendalian Kimia:\nSemprotkan fungisida berbahan aktif seperti triazol atau strobilurin sesuai dosis anjuran.\n\nPengelolaan Lahan:\nHindari menanam padi pada area yang sama secara berulang untuk memutus siklus hidup jamur.\nLakukan sanitasi dengan membersihkan sisa-sisa tanaman setelah panen.</string>
+    <string name="disease_d_description">Tanaman Anda Sehat!</string>
+    <string name="disease_d_prevention">Tidak ada karena tanaman Anda sehat!\nTerus rawat dan jaga tanaman Anda agar tumbuh dengan baik</string>
+    <string name="unknown_disease_description">Tidak dapat dikenali</string>
+    <string name="unknown_disease_prevention">Tidak dapat dikenali</string>
+    <string name="gambar_penyakit">Gambar Penyakit</string>
+    <string name="detail_penyakit">Detail Penyakit</string>
+    <string name="description_penyakit">Deskripsi Penyakit</string>
+    <string name="pencegahan_placeholder">Cara Mencegah</string>
 </resources>

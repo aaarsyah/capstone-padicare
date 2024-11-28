@@ -16,7 +16,6 @@ class DiseaseAdapter(
 
     private val diseaseList = mutableListOf<Disease>()
 
-    // Function to submit a new list
     fun submitList(diseases: List<Disease>) {
         diseaseList.clear()
         diseaseList.addAll(diseases)

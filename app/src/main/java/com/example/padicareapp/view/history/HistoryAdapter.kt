@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.padicareapp.databinding.ItemHistoryBinding
+import com.example.padicareapp.entity.PredictionHistory
+
 
 class HistoryAdapter : ListAdapter<PredictionHistory, HistoryAdapter.HistoryViewHolder>(HistoryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
+
         val binding = ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HistoryViewHolder(binding)
     }
@@ -22,13 +25,14 @@ class HistoryAdapter : ListAdapter<PredictionHistory, HistoryAdapter.HistoryView
 
     inner class HistoryViewHolder(private val binding: ItemHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(history: PredictionHistory) {
+
             Glide.with(binding.imageView.context)
                 .load(Uri.parse(history.imageUri))
                 .into(binding.imageView)
 
-            binding.textViewResult.text = history.label
 
-            binding.textViewConfidence.text = "Akurasi: ${history.confidenceScore}"
+            binding.textViewResult.text = "${history.label}"
+            binding.textViewConfidence.text = "Akurasi : ${history.confidenceScore * 100}%"
         }
     }
 

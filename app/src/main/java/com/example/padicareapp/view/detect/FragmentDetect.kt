@@ -17,16 +17,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.padicareapp.R
 import com.example.padicareapp.databinding.FragmentDetectBinding
+import com.example.padicareapp.entity.PredictionHistory
+import com.example.padicareapp.room.AppDatabase
 import com.example.padicareapp.view.camera.CameraActivity
 import com.example.padicareapp.view.camera.CameraActivity.Companion.CAMERAX_RESULT
 import com.example.padicareapp.view.result.ResultActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class FragmentDetect : Fragment(R.layout.fragment_detect) {
 
     private lateinit var binding: FragmentDetectBinding
     private var currentImageUri: Uri? = null
+    private val detectViewModel: DetectViewModel by activityViewModels()
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -41,7 +48,7 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
             uri?.let {
                 currentImageUri = it
-                showImage()
+                detectViewModel.setCurrentImageUri(it)
             } ?: run {
                 Log.d("Photo Picker", "No media selected")
             }
@@ -51,8 +58,10 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == CAMERAX_RESULT) {
                 val uri = result.data?.getStringExtra(CameraActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
-                currentImageUri = uri
-                showImage()
+                if (uri != null) {
+                    currentImageUri = uri
+                    detectViewModel.setCurrentImageUri(uri)
+                }
             }
         }
 
@@ -68,7 +77,10 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false)
         toolbar.logo = BitmapDrawable(resources, scaledBitmap)
 
-        // Image selection and camera
+        detectViewModel.currentImageUri.observe(viewLifecycleOwner) { uri ->
+            showImage(uri)
+        }
+
         binding.buttonCamera.setOnClickListener { startCameraX() }
         binding.buttonGallery.setOnClickListener { startGallery() }
         binding.buttonCheck.setOnClickListener { detectDisease() }
@@ -88,24 +100,42 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
         launcherIntentCameraX.launch(intent)
     }
 
-    private fun showImage() {
-        binding.ivImage.setImageURI(currentImageUri)
+    private fun showImage(imageUri: Uri?) {
+        binding.ivImage.setImageURI(null)
+        if (imageUri != null) {
+            binding.ivImage.setImageURI(imageUri)
+        } else {
+            Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun detectDisease() {
-        if (currentImageUri == null) {
+        val currentUri = detectViewModel.currentImageUri.value
+        if (currentUri == null) {
             Toast.makeText(requireContext(), "Please select an image", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Simulate disease detection
         Toast.makeText(requireContext(), "Detecting...", Toast.LENGTH_SHORT).show()
+        val fakeResultLabel = "Brown Spot" // Example label
+        val fakeConfidence = 0.95f // Example confidence score
 
-        // Passing the image URI to the ResultActivity
+        savePredictionHistory(currentUri.toString(), fakeResultLabel, fakeConfidence)
+
         val intent = Intent(requireContext(), ResultActivity::class.java).apply {
-            putExtra("imageUri", currentImageUri.toString()) // Send the image URI to ResultActivity
+            putExtra("imageUri", currentUri.toString())
+            putExtra("disease_name", fakeResultLabel)
+            putExtra("accuracy", fakeConfidence)
         }
         startActivity(intent)
+    }
+
+    private fun savePredictionHistory(imageUri: String, label: String, confidenceScore: Float) {
+        val predictionHistory = PredictionHistory(imageUri = imageUri, label = label, confidenceScore = confidenceScore)
+        val database = AppDatabase.getDatabase(requireContext())
+        lifecycleScope.launch(Dispatchers.IO) {
+            database.predictionHistoryDao().insert(predictionHistory)
+        }
     }
 
     private fun allPermissionsGranted() =

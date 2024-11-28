@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.result.ResultActivity">
+    tools:context=".view.detaildisease.ActivityDetailDisease">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvDetail"
+            android:id="@+id/tvDetect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/detail_penyakit"
@@ -30,7 +30,7 @@
             android:scaleType="fitCenter"
             android:layout_marginTop="5dp"
             app:srcCompat="@drawable/baseline_photo_size_select_actual_24"
-            android:contentDescription="@string/result_placeholder" />
+            android:contentDescription="@string/gambar_penyakit" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -57,16 +57,6 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true" />
 
-                <TextView
-                    android:id="@+id/accuracy_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:text="@string/akurasi"
-                    android:textColor="@color/black"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
@@ -79,7 +69,7 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_marginTop="8dp"
-            android:text="@string/description_placeholder" />
+            android:text="@string/description_penyakit" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -99,6 +89,36 @@
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/text_titledesc" />
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/text_titlepencegahan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:text="@string/pencegahan_placeholder" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="@color/light_green">
+
+            <TextView
+                android:id="@+id/pencegahan_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textSize="16sp"
+                android:text="@string/pencegahan_placeholder"
+                android:textColor="@color/black" />
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/text_titlepreventif"
