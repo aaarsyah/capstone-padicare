@@ -26,7 +26,7 @@ import java.io.IOException
 class ImageClassifierHelper(
     var threshold: Float = 0.1f,
     var maxResults: Int = 3,
-    val modelName: String = "model_metadata.tflite",
+    val modelName: String = "model_metadata_1.tflite",
     val context: Context,
     val classifierListener: ClassifierListener?
 ) {
@@ -72,9 +72,6 @@ class ImageClassifierHelper(
                 bitmap?.let {
                     // Convert bitmap to TensorImage
                     var tensorImage = TensorImage.fromBitmap(it)
-
-                    // Normalize the TensorImage
-//                    tensorImage = normalizeTensorImage(tensorImage)
 
                     // Run classification
                     val startTime = System.nanoTime()
@@ -127,13 +124,4 @@ class ImageClassifierHelper(
     }
 
 
-    // Ini karena model nya gaada metadata
-//    private fun normalizeTensorImage(tensorImage: TensorImage): TensorImage {
-//        val imageProcessor = ImageProcessor.Builder()
-//            .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR)) // Sesuaikan dengan dimensi model
-//            .add(NormalizeOp(0.0f, 255.0f)) // Normalisasi ke [0, 1]
-//            .build()
-//
-//        return imageProcessor.process(tensorImage)
-//    }
 }

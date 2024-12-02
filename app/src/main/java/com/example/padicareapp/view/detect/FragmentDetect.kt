@@ -168,7 +168,7 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
             val confidence = topCategory.score
             val formattedConfidence: String
 
-            if (confidence >= 50) {
+            if (confidence * 100 >= 50) {
                 label = topCategory.label
                 formattedConfidence = String.format("%.2f", confidence * 100)
             } else {
@@ -185,7 +185,7 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
                 val intent = Intent(requireContext(), ResultActivity::class.java).apply {
                     putExtra("imageUri", currentUri.toString())
                     putExtra("disease_name", label)
-                    putExtra("accuracy", confidence)
+                    putExtra("accuracy", formattedConfidence)
                 }
                 startActivity(intent)
             }

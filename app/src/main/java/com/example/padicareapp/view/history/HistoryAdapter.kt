@@ -1,5 +1,6 @@
 package com.example.padicareapp.view.history
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class HistoryAdapter : ListAdapter<PredictionHistory, HistoryAdapter.HistoryView
     }
 
     inner class HistoryViewHolder(private val binding: ItemHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(history: PredictionHistory) {
 
             Glide.with(binding.imageView.context)
@@ -31,8 +33,8 @@ class HistoryAdapter : ListAdapter<PredictionHistory, HistoryAdapter.HistoryView
                 .into(binding.imageView)
 
 
-            binding.textViewResult.text = "${history.label}"
-            binding.textViewConfidence.text = "Akurasi : ${history.confidenceScore * 100}%"
+            binding.textViewResult.text = history.label
+            binding.textViewConfidence.text = "Akurasi : ${history.confidenceScore}%"
         }
     }
 

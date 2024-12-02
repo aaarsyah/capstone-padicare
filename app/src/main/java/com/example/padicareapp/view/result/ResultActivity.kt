@@ -17,7 +17,7 @@ class ResultActivity : AppCompatActivity() {
 
         // Get the data from the intent
         val diseaseName = intent.getStringExtra("disease_name") ?: "Unknown"
-        val confidenceScore = intent.getFloatExtra("accuracy", 0.0f)
+        val confidenceScore = intent.getStringExtra("accuracy")
         val imageUriString = intent.getStringExtra("imageUri")
 
         // Display image, result, and additional details
@@ -26,7 +26,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun displayResults(
         diseaseName: String,
-        confidenceScore: Float,
+        confidenceScore: String?,
         imageUriString: String?
     ) {
         // Display the selected image
@@ -40,8 +40,7 @@ class ResultActivity : AppCompatActivity() {
         // Set disease detection result and confidence
         binding.resultText.text = diseaseName
 
-        val formattedConfidence = String.format("%.2f", confidenceScore * 100)
-        val acuracyText = "Akurasi : $formattedConfidence%"
+        val acuracyText = "Akurasi : $confidenceScore%"
 
         binding.accuracyText.text = acuracyText
 
