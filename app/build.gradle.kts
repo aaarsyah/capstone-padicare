@@ -12,11 +12,16 @@ android {
     defaultConfig {
         applicationId = "com.example.padicareapp"
         minSdk = 24
+        //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+//        ndk {
+//            //noinspection ChromeOsAbiSupport
+//            abiFilters += listOf("armeabi-v7a", "arm64-v8a") // ABI kompatibel
+//        }
     }
 
     buildTypes {
@@ -46,10 +51,12 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+
     implementation(libs.tflite)
     implementation(libs.tflite.support)
     implementation(libs.tflite.metadata)
     implementation(libs.tflite.task.vision)
+
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)

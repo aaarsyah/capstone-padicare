@@ -1,6 +1,7 @@
 package com.example.padicareapp.view.detect
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -22,16 +23,20 @@ import androidx.lifecycle.lifecycleScope
 import com.example.padicareapp.R
 import com.example.padicareapp.databinding.FragmentDetectBinding
 import com.example.padicareapp.entity.PredictionHistory
+import com.example.padicareapp.helper.ImageClassifierHelper
 import com.example.padicareapp.room.AppDatabase
 import com.example.padicareapp.view.camera.CameraActivity
 import com.example.padicareapp.view.camera.CameraActivity.Companion.CAMERAX_RESULT
 import com.example.padicareapp.view.result.ResultActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.tensorflow.lite.task.vision.classifier.Classifications
 
-class FragmentDetect : Fragment(R.layout.fragment_detect) {
+class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper.ClassifierListener {
 
     private lateinit var binding: FragmentDetectBinding
+    private lateinit var imageClassifierHelper: ImageClassifierHelper
+
     private var currentImageUri: Uri? = null
     private val detectViewModel: DetectViewModel by activityViewModels()
 
@@ -65,6 +70,7 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
             }
         }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetectBinding.bind(view)
@@ -76,6 +82,11 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.logo_tanpatulisan)
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false)
         toolbar.logo = BitmapDrawable(resources, scaledBitmap)
+
+        imageClassifierHelper = ImageClassifierHelper(
+            context = requireContext(),
+            classifierListener = this
+        )
 
         detectViewModel.currentImageUri.observe(viewLifecycleOwner) { uri ->
             showImage(uri)
@@ -90,7 +101,6 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
     }
-
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
@@ -117,17 +127,20 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
         }
 
         Toast.makeText(requireContext(), "Detecting...", Toast.LENGTH_SHORT).show()
-        val fakeResultLabel = "Brown Spot" // Example label
-        val fakeConfidence = 0.95f // Example confidence score
 
-        savePredictionHistory(currentUri.toString(), fakeResultLabel, fakeConfidence)
+        imageClassifierHelper.classifyStaticImage(currentUri)
 
-        val intent = Intent(requireContext(), ResultActivity::class.java).apply {
-            putExtra("imageUri", currentUri.toString())
-            putExtra("disease_name", fakeResultLabel)
-            putExtra("accuracy", fakeConfidence)
-        }
-        startActivity(intent)
+//        val fakeResultLabel = "Brown Spot" // Example label
+//        val fakeConfidence = 0.95f // Example confidence score
+
+//        savePredictionHistory(currentUri.toString(), fakeResultLabel, fakeConfidence)
+//
+//        val intent = Intent(requireContext(), ResultActivity::class.java).apply {
+//            putExtra("imageUri", currentUri.toString())
+//            putExtra("disease_name", fakeResultLabel)
+//            putExtra("accuracy", fakeConfidence)
+//        }
+//        startActivity(intent)
     }
 
     private fun savePredictionHistory(imageUri: String, label: String, confidenceScore: Float) {
@@ -143,6 +156,41 @@ class FragmentDetect : Fragment(R.layout.fragment_detect) {
             requireContext(),
             REQUIRED_PERMISSION
         ) == PackageManager.PERMISSION_GRANTED
+
+    override fun onError(error: String) {
+        Toast.makeText(requireContext(), "Error: $error", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
+        results?.firstOrNull()?.categories?.maxByOrNull { it.score }?.let { topCategory ->
+
+            val label: String
+            val confidence = topCategory.score
+            val formattedConfidence: String
+
+            if (confidence >= 50) {
+                label = topCategory.label
+                formattedConfidence = String.format("%.2f", confidence * 100)
+            } else {
+                label = "Tidak Dikenali"
+                formattedConfidence = "N/A"
+            }
+
+            Toast.makeText(requireContext(), "Disease: $label, Confidence: $formattedConfidence%", Toast.LENGTH_LONG).show()
+
+            // Save result to history and navigate to ResultActivity
+            val currentUri = detectViewModel.currentImageUri.value
+            if (currentUri != null) {
+                savePredictionHistory(currentUri.toString(), label, confidence)
+                val intent = Intent(requireContext(), ResultActivity::class.java).apply {
+                    putExtra("imageUri", currentUri.toString())
+                    putExtra("disease_name", label)
+                    putExtra("accuracy", confidence)
+                }
+                startActivity(intent)
+            }
+        }
+    }
 
     companion object {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA

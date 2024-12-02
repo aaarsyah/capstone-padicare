@@ -24,7 +24,11 @@ class ResultActivity : AppCompatActivity() {
         displayResults(diseaseName, confidenceScore, imageUriString)
     }
 
-    private fun displayResults(diseaseName: String, confidenceScore: Float, imageUriString: String?) {
+    private fun displayResults(
+        diseaseName: String,
+        confidenceScore: Float,
+        imageUriString: String?
+    ) {
         // Display the selected image
         imageUriString?.let {
             val imageUri = Uri.parse(it)
@@ -34,30 +38,35 @@ class ResultActivity : AppCompatActivity() {
         }
 
         // Set disease detection result and confidence
-        val resultText = "$diseaseName"
-        binding.resultText.text = resultText
+        binding.resultText.text = diseaseName
 
-        val acuracyText = "Akurasi : ${confidenceScore * 100}%"
+        val formattedConfidence = String.format("%.2f", confidenceScore * 100)
+        val acuracyText = "Akurasi : $formattedConfidence%"
+
         binding.accuracyText.text = acuracyText
 
         // Provide disease-specific description and prevention tips
         when (diseaseName) {
-            "Brown Spot" -> {
+            "brownspot" -> {
                 binding.diseaseDescription.text = getString(R.string.disease_a_description)
                 binding.preventionTips.text = getString(R.string.disease_a_prevention)
             }
-            "Hispa" -> {
+
+            "hispa" -> {
                 binding.diseaseDescription.text = getString(R.string.disease_b_description)
                 binding.preventionTips.text = getString(R.string.disease_b_prevention)
             }
-            "Leaf Blast (Hawar Daun)" -> {
+
+            "leafblast" -> {
                 binding.diseaseDescription.text = getString(R.string.disease_c_description)
                 binding.preventionTips.text = getString(R.string.disease_c_prevention)
             }
-            "Sehat" -> {
+
+            "healthy" -> {
                 binding.diseaseDescription.text = getString(R.string.disease_d_description)
                 binding.preventionTips.text = getString(R.string.disease_d_prevention)
             }
+
             else -> {
                 binding.diseaseDescription.text = getString(R.string.unknown_disease_description)
                 binding.preventionTips.text = getString(R.string.unknown_disease_prevention)
