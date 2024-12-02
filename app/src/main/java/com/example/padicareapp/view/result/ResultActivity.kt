@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.padicareapp.R
 import com.example.padicareapp.databinding.ActivityResultBinding
 
@@ -14,6 +15,13 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.apply {
+            title = getString(R.string.detail_penyakit) // Judul toolbar
+            setDisplayHomeAsUpEnabled(true) // Menambahkan tombol back
+        }
 
         // Get the data from the intent
         val diseaseName = intent.getStringExtra("disease_name") ?: "Unknown"
@@ -71,5 +79,9 @@ class ResultActivity : AppCompatActivity() {
                 binding.preventionTips.text = getString(R.string.unknown_disease_prevention)
             }
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
