@@ -4,8 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.padicareapp.data.response.ArticleResponse
+import com.example.padicareapp.data.retrofit.ApiConfig
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
 
@@ -80,12 +85,44 @@ class HomeViewModel : ViewModel() {
                 _diseases.value = dummyDiseases
 
                 // Load dummy articles
-                val dummyArticles = listOf(
-                    Article("1", "5 Tips for Healthy Crops", "Learn how to improve your harvest.", "https://example.com/article1.jpg"),
-                    Article("2", "Understanding Rice Diseases", "A comprehensive guide to rice diseases.", "https://example.com/article2.jpg"),
-                    Article("3", "Pest Control 101", "Effective pest management strategies.", "https://example.com/article3.jpg")
-                )
-                _articles.value = dummyArticles
+//                val dummyArticles = listOf(
+//                    Article("1", "5 Tips for Healthy Crops", "Learn how to improve your harvest.", "https://example.com/article1.jpg"),
+//                    Article("2", "Understanding Rice Diseases", "A comprehensive guide to rice diseases.", "https://example.com/article2.jpg"),
+//                    Article("3", "Pest Control 101", "Effective pest management strategies.", "https://example.com/article3.jpg")
+//                )
+//                _articles.value = dummyArticles
+
+                ApiConfig.getApiService().getArticle().enqueue(object : Callback<ArticleResponse> {
+                    override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
+                        _isLoading.value = true
+                        if (response.isSuccessful) {
+                            // Map ArticlesItem to Article
+                            response.body()?.articles?.let { articlesItemList ->
+                                val articleList = articlesItemList.map { articleItem ->
+                                    // Convert ArticlesItem to Article
+                                    Article(
+                                        id = articleItem?.id ?: "",
+                                        title = articleItem?.title ?: "",
+                                        description = articleItem?.id ?: "",  // Assuming description is same as title for now
+                                        imageUrl = "" // Add the image URL field if you have it
+                                    )
+                                }
+                                _articles.value = articleList
+                            }
+                        } else {
+                            // Handle unsuccessful response, maybe show an error message
+                            _articles.value = emptyList()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
+                        _isLoading.value = false
+                        // Handle failure, maybe show a Toast or log the exception
+                        _articles.value = emptyList()
+                    }
+                })
+
+
 
                 _isLoading.value = false
             } catch (e: Exception) {
