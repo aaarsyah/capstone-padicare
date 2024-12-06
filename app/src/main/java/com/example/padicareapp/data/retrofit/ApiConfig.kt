@@ -13,7 +13,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://us-central1-padi-care-1234.cloudfunctions.net")
+                .baseUrl("https://asia-southeast2-padi-care-1234.cloudfunctions.net")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

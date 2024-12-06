@@ -103,8 +103,11 @@ class HomeViewModel : ViewModel() {
                                     Article(
                                         id = articleItem?.id ?: "",
                                         title = articleItem?.title ?: "",
-                                        description = articleItem?.id ?: "",  // Assuming description is same as title for now
-                                        imageUrl = "" // Add the image URL field if you have it
+                                        summary = articleItem?.summary ?: "",
+                                        imageUrl = articleItem?.imageUrl ?: "",
+                                        content = articleItem?.content ?: "",
+                                        source = articleItem?.source ?: "",
+                                        publishedDate = articleItem?.publishedDate ?: ""
                                     )
                                 }
                                 _articles.value = articleList
@@ -113,6 +116,7 @@ class HomeViewModel : ViewModel() {
                             // Handle unsuccessful response, maybe show an error message
                             _articles.value = emptyList()
                         }
+                        _isLoading.value = false
                     }
 
                     override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {

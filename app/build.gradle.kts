@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.cardview)
     implementation(libs.camera.camera2)
     implementation(libs.camera.extensions)
+    implementation(libs.androidx.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

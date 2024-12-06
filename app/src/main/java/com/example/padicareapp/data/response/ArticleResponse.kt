@@ -10,9 +10,24 @@ data class ArticleResponse(
 
 data class ArticlesItem(
 
+	@field:SerializedName("summary")
+	val summary: String? = null,
+
+	@field:SerializedName("image_url")
+	val imageUrl: String? = null,
+
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: Int? = null,
+
+	@field:SerializedName("source")
+	val source: String? = null,
 
 	@field:SerializedName("title")
-	val title: String? = null
+	val title: String? = null,
+
+	@field:SerializedName("published_date")
+	val publishedDate: String? = null,
+
+	@field:SerializedName("content")
+	val content: String? = null
 )

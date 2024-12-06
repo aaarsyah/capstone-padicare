@@ -1,5 +1,7 @@
 package com.example.padicareapp.view.home
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.padicareapp.R
 
 class ArticleAdapter(
@@ -43,13 +46,16 @@ class ArticleAdapter(
 
         fun bind(article: Article) {
             textArticleTitle.text = article.title
-            textArticleDescription.text = article.description
-            // Use a library like Glide or Picasso to load the image
-            // Example with Glide:
-            // Glide.with(itemView.context).load(article.imageUrl).into(imageArticle)
+            textArticleDescription.text = article.summary
+            Glide.with(itemView.context).load(article.imageUrl).into(imageArticle)
 
-            // Set click listener for the card
-            cardView.setOnClickListener { onItemClicked(article) }
+            cardView.setOnClickListener {
+                val intent = Intent(itemView.context, ArticleActivity::class.java).apply {
+                putExtra(ArticleActivity.EXTRA_URL, article.source)
+            }
+                itemView.context.startActivity(intent)
+            }
+//
         }
     }
 }

@@ -1,8 +1,11 @@
 package com.example.padicareapp.view.home
 
 data class Article(
-    val id: String,
+    val id: Comparable<*>,
     val title: String,
-    val description: String,
-    val imageUrl: String
+    val summary: String,
+    val content: String,
+    val imageUrl: String,
+    val publishedDate: String,
+    val source: String,
 )
