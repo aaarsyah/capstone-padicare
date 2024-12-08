@@ -145,34 +145,36 @@
     <!-- Positioning ImageFilterView (menu1, menu2, menu3) centered after descMenu3 -->
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/menu1"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="60dp"
         app:altSrc="@drawable/ic_circle_filled"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descMenu3"
-        app:layout_constraintEnd_toStartOf="@+id/menu2"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:srcCompat="@drawable/ic_circle_empty" />
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/menu2"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         app:altSrc="@drawable/ic_circle_filled"
-        app:layout_constraintStart_toEndOf="@+id/menu1"
-        app:layout_constraintTop_toBottomOf="@+id/descMenu3"
-        app:layout_constraintEnd_toStartOf="@+id/menu3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:srcCompat="@drawable/ic_circle_empty" />
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/menu3"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="60dp"
         app:altSrc="@drawable/ic_circle_filled"
-        app:layout_constraintStart_toEndOf="@+id/menu2"
-        app:layout_constraintTop_toBottomOf="@+id/descMenu3"
-        app:layout_constraintEnd_toStartOf="@+id/menu4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:srcCompat="@drawable/ic_circle_empty" />
 
@@ -183,13 +185,14 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/get_started"
         app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu2" />
+        />
 
     <ImageView
         android:id="@+id/imageView"
@@ -199,7 +202,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_padicare"
         android:contentDescription="@string/app_name" />
 
