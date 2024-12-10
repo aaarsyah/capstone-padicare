@@ -130,17 +130,6 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
 
         imageClassifierHelper.classifyStaticImage(currentUri)
 
-//        val fakeResultLabel = "Brown Spot" // Example label
-//        val fakeConfidence = 0.95f // Example confidence score
-
-//        savePredictionHistory(currentUri.toString(), fakeResultLabel, fakeConfidence)
-//
-//        val intent = Intent(requireContext(), ResultActivity::class.java).apply {
-//            putExtra("imageUri", currentUri.toString())
-//            putExtra("disease_name", fakeResultLabel)
-//            putExtra("accuracy", fakeConfidence)
-//        }
-//        startActivity(intent)
     }
 
     private fun savePredictionHistory(imageUri: String, label: String, confidenceScore: Float) {
