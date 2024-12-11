@@ -36,9 +36,14 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
 
     private lateinit var binding: FragmentDetectBinding
     private lateinit var imageClassifierHelper: ImageClassifierHelper
+//    private lateinit var imageValidationHelper: ImageValidationHelper
+//    private lateinit var autoEncoderHelper: AutoEncoderHelper
+
 
     private var currentImageUri: Uri? = null
     private val detectViewModel: DetectViewModel by activityViewModels()
+
+
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -83,6 +88,13 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false)
         toolbar.logo = BitmapDrawable(resources, scaledBitmap)
 
+//        autoEncoderHelper = AutoEncoderHelper(
+//            requireContext(),
+//            "autoencoderMetadata.tflite",
+//            256,
+//            0.006f
+//        )
+
         imageClassifierHelper = ImageClassifierHelper(
             context = requireContext(),
             classifierListener = this
@@ -126,6 +138,24 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
             return
         }
 
+        Toast.makeText(requireContext(), "Validating...", Toast.LENGTH_SHORT).show()
+
+        // Convert Uri to Bitmap
+        val inputStream = requireContext().contentResolver.openInputStream(currentUri)
+        val originalBitmap = BitmapFactory.decodeStream(inputStream)
+        inputStream?.close()
+
+        if (originalBitmap == null) {
+            Toast.makeText(requireContext(), "Failed to load image", Toast.LENGTH_SHORT).show()
+            return
+        }
+        // Validate image using ImageValidationHelper
+//        if (!autoEncoderHelper.validateImage(originalBitmap)) {
+//            Toast.makeText(requireContext(), "Image not valid. Please select a clearer image.", Toast.LENGTH_LONG).show()
+//            return
+//        }
+//        autoEncoderHelper.close()
+
         Toast.makeText(requireContext(), "Detecting...", Toast.LENGTH_SHORT).show()
 
         imageClassifierHelper.classifyStaticImage(currentUri)
@@ -157,7 +187,7 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
             val confidence = topCategory.score
             val formattedConfidence: String
 
-            if (confidence * 100 >= 50) {
+            if (confidence * 100 >= 40) {
                 label = topCategory.label
                 formattedConfidence = String.format("%.2f", confidence * 100)
             } else {
