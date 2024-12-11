@@ -29,7 +29,7 @@ class HomeViewModel : ViewModel() {
             _isLoading.value = true
             try {
                 // Simulate API call with a delay
-                delay(2000)
+//                delay(2000)
 
                 // Load dummy diseases
                 val dummyDiseases = listOf(
@@ -83,7 +83,7 @@ class HomeViewModel : ViewModel() {
                     )
                 )
                 _diseases.value = dummyDiseases
-                
+
 
                 ApiConfig.getApiService().getArticle().enqueue(object : Callback<ArticleResponse> {
                     override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
@@ -118,8 +118,6 @@ class HomeViewModel : ViewModel() {
                         _articles.value = emptyList()
                     }
                 })
-
-
 
                 _isLoading.value = false
             } catch (e: Exception) {
