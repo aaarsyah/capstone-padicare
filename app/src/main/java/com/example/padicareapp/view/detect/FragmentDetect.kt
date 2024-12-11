@@ -23,7 +23,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.padicareapp.R
 import com.example.padicareapp.databinding.FragmentDetectBinding
 import com.example.padicareapp.entity.PredictionHistory
-import com.example.padicareapp.helper.AutoEncoderHelper
 import com.example.padicareapp.helper.ImageClassifierHelper
 import com.example.padicareapp.room.AppDatabase
 import com.example.padicareapp.view.camera.CameraActivity
@@ -37,7 +36,8 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
 
     private lateinit var binding: FragmentDetectBinding
     private lateinit var imageClassifierHelper: ImageClassifierHelper
-    private lateinit var autoEncoderHelper: AutoEncoderHelper
+//    private lateinit var imageValidationHelper: ImageValidationHelper
+//    private lateinit var autoEncoderHelper: AutoEncoderHelper
 
 
     private var currentImageUri: Uri? = null
@@ -88,12 +88,12 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false)
         toolbar.logo = BitmapDrawable(resources, scaledBitmap)
 
-        autoEncoderHelper = AutoEncoderHelper(
-            requireContext(),
-            "autoencoderModel.tflite",
-            256,
-            0.006f
-        )
+//        autoEncoderHelper = AutoEncoderHelper(
+//            requireContext(),
+//            "autoencoderMetadata.tflite",
+//            256,
+//            0.006f
+//        )
 
         imageClassifierHelper = ImageClassifierHelper(
             context = requireContext(),
@@ -149,12 +149,12 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
             Toast.makeText(requireContext(), "Failed to load image", Toast.LENGTH_SHORT).show()
             return
         }
-        // Validate image using AutoEncoderHelper
-        if (!autoEncoderHelper.validateImage(originalBitmap)) {
-            Toast.makeText(requireContext(), "Image not valid. Please select a clearer image.", Toast.LENGTH_LONG).show()
-            return
-        }
-        autoEncoderHelper.close()
+        // Validate image using ImageValidationHelper
+//        if (!autoEncoderHelper.validateImage(originalBitmap)) {
+//            Toast.makeText(requireContext(), "Image not valid. Please select a clearer image.", Toast.LENGTH_LONG).show()
+//            return
+//        }
+//        autoEncoderHelper.close()
 
         Toast.makeText(requireContext(), "Detecting...", Toast.LENGTH_SHORT).show()
 
@@ -198,7 +198,7 @@ class FragmentDetect : Fragment(R.layout.fragment_detect), ImageClassifierHelper
             val confidence = topCategory.score
             val formattedConfidence: String
 
-            if (confidence * 100 >= 50) {
+            if (confidence * 100 >= 40) {
                 label = topCategory.label
                 formattedConfidence = String.format("%.2f", confidence * 100)
             } else {

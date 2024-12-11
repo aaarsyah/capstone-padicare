@@ -34,7 +34,7 @@ class HistoryAdapter : ListAdapter<PredictionHistory, HistoryAdapter.HistoryView
 
 
             binding.textViewResult.text = history.label
-            binding.textViewConfidence.text = "Akurasi : ${history.confidenceScore}%"
+            binding.textViewConfidence.text = "Akurasi : ${String.format("%.2f", history.confidenceScore * 100)}%"
         }
     }
 

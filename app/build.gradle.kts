@@ -19,15 +19,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//        ndk {
-//            //noinspection ChromeOsAbiSupport
-//            abiFilters += listOf("armeabi-v7a", "arm64-v8a") // ABI kompatibel
-//        }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -57,7 +54,7 @@ dependencies {
     implementation(libs.tflite.support)
     implementation(libs.tflite.metadata)
     implementation(libs.tflite.task.vision)
-    implementation("org.tensorflow:tensorflow-lite-select-tf-ops:2.13.0")
+//    implementation("org.tensorflow:tensorflow-lite-select-tf-ops:2.13.0")
 
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.lifecycle)

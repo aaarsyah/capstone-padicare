@@ -26,7 +26,9 @@ import java.io.IOException
 class ImageClassifierHelper(
     var threshold: Float = 0.1f,
     var maxResults: Int = 3,
+
     val modelName: String = "model_metadata_1.tflite",
+//    val modelName: String = "model_Paddi_Disease_Detection.tflite",
     val context: Context,
     val classifierListener: ClassifierListener?
 ) {
