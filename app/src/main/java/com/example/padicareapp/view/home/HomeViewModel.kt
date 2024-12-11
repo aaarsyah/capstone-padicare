@@ -84,14 +84,6 @@ class HomeViewModel : ViewModel() {
                 )
                 _diseases.value = dummyDiseases
 
-                // Load dummy articles
-//                val dummyArticles = listOf(
-//                    Article("1", "5 Tips for Healthy Crops", "Learn how to improve your harvest.", "https://example.com/article1.jpg"),
-//                    Article("2", "Understanding Rice Diseases", "A comprehensive guide to rice diseases.", "https://example.com/article2.jpg"),
-//                    Article("3", "Pest Control 101", "Effective pest management strategies.", "https://example.com/article3.jpg")
-//                )
-//                _articles.value = dummyArticles
-
                 ApiConfig.getApiService().getArticle().enqueue(object : Callback<ArticleResponse> {
                     override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
                         _isLoading.value = true
