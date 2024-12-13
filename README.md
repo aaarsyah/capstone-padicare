@@ -5,6 +5,7 @@
 PadiCare is an AI-powered mobile app to assist farmers in diagnosing rice plant diseases through image recognition. Farmers can take pictures of affected plants, which will be analyzed by machine learning models trained to identify common rice diseases and pest attacks. The app will provide real-time diagnosis results and actionable treatment recommendations, so that farmers can address problems quickly and effectively. By offering easily accessible solutions, PadiCare seeks to improve farmers' ability to reduce crop losses, increase yields, and contribute to sustainable agriculture in Indonesia.
 
 
+
 Our application is designed for Android devices. To use it, your device must run on Android OS Version 7.0 (Nougat) or newer. You can download the app (.apk) using the link provided below.
 
 [PadiCare App](https://drive.google.com/drive/folders/19QebCHVF2NMtDcbRbaypA8hE61ljkqyr?usp=sharing) 
